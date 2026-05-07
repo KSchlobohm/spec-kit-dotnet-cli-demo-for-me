@@ -40,11 +40,11 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Set up base DI container (`Spectre.Console.Cli` TypeRegistrar) in `src/TimezoneMeetingCli/Program.cs`
-- [ ] T007 Implement the core `LocationQuery`, `GeocodedLocation`, and `LocalizedTimeResult` entities in `src/TimezoneMeetingCli/Models/`
-- [ ] T008 [P] Implement `OpenMeteoGeocodingService` (or similar) in `src/TimezoneMeetingCli/Services/Geocoding/` with standard HTTP fallback error handling
-- [ ] T009 [P] Implement `NodaTimeConversionService` in `src/TimezoneMeetingCli/Services/TimeConversion/` passing basic IANA tests
-- [ ] T010 Setup basic Application output handler to conditionally format plain text vs json (based on `--format`)
+- [x] T006 Set up base DI container (`Spectre.Console.Cli` TypeRegistrar) in `src/TimezoneMeetingCli/Program.cs`
+- [x] T007 Implement the core `LocationQuery`, `GeocodedLocation`, and `LocalizedTimeResult` entities in `src/TimezoneMeetingCli/Models/`
+- [x] T008 [P] Implement `OpenMeteoGeocodingService` (or similar) in `src/TimezoneMeetingCli/Services/Geocoding/` with standard HTTP fallback error handling
+- [x] T009 [P] Implement `NodaTimeConversionService` in `src/TimezoneMeetingCli/Services/TimeConversion/` passing basic IANA tests
+- [x] T010 Setup basic Application output handler to conditionally format plain text vs json (based on `--format`)
 
 ---
 
