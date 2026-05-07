@@ -7,7 +7,7 @@ public static class OutputHandler
 {
     public static void PrintError(string message)
     {
-        AnsiConsole.MarkupLine($"[red]Error:[/] {message}");
+        Console.Error.WriteLine($"Error: {message}");
     }
 
     public static void PrintJson<T>(T data)
