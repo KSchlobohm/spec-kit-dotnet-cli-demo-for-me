@@ -78,5 +78,5 @@ description: "Task list template for feature implementation"
 
 ## Phase 5: Polish & Cross-Cutting Concerns
 
-- [ ] T021 Build and confirm self-contained single binaries for target architectures (win-x64, osx-arm64, linux-x64).
-- [ ] T022 Document and verify performance limits to meet <200ms CLI startup and <200MB constraints.
+- [x] T021 Build and confirm self-contained single binaries for target architectures (win-x64, osx-arm64, linux-x64).
+- [x] T022 Document and verify performance limits to meet <200ms CLI startup and <200MB constraints.
