@@ -68,11 +68,11 @@ description: "Task list template for feature implementation"
 
 **Independent Test**: Provide a base time in one configuration and multiple target locations as arguments. Verify that standard output lists the equivalent times for all target locations clearly.
 
-- [ ] T016 [P] [US2] Create unit tests testing cross-timezone array resolutions for proposed base times in `tests/TimezoneMeetingCli.UnitTests/`
-- [ ] T017 [US2] Implement `MeetingProposal` entity in `src/TimezoneMeetingCli/Models/`
-- [ ] T018 [US2] Implement the `time schedule` command class (`ScheduleCommand`) in `src/TimezoneMeetingCli/Commands/`
-- [ ] T019 [US2] Implement the table renderer for multiple locations leveraging `Spectre.Console`
-- [ ] T020 [US2] Create integration test verifying meeting scheduling command with 5+ locations succeeds and fails gracefully on bad input
+- [x] T016 [P] [US2] Create unit tests testing cross-timezone array resolutions for proposed base times in `tests/TimezoneMeetingCli.UnitTests/`
+- [x] T017 [US2] Implement `MeetingProposal` entity in `src/TimezoneMeetingCli/Models/`
+- [x] T018 [US2] Implement the `time schedule` command class (`ScheduleCommand`) in `src/TimezoneMeetingCli/Commands/`
+- [x] T019 [US2] Implement the table renderer for multiple locations leveraging `Spectre.Console`
+- [x] T020 [US2] Create integration test verifying meeting scheduling command with 5+ locations succeeds and fails gracefully on bad input
 
 ---
 
