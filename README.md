@@ -19,13 +19,13 @@ Locates the current date and time for a given location or timezone.
 
 **Usage:**
 ```bash
-TimezoneMeetingCli time lookup <location> [OPTIONS]
+./TimezoneMeetingCli time lookup <location> [OPTIONS]
 ```
 **Examples:**
 ```bash
-TimezoneMeetingCli time lookup 10001
-TimezoneMeetingCli time lookup "Paris, France"
-TimezoneMeetingCli time lookup Europe/Paris --format json
+./TimezoneMeetingCli time lookup 10001
+./TimezoneMeetingCli time lookup "Paris, France"
+./TimezoneMeetingCli time lookup Europe/Paris --format json
 ```
 
 ### `time schedule`
@@ -33,12 +33,12 @@ Display the equivalent times for a proposed host meeting time across multiple pa
 
 **Usage:**
 ```bash
-TimezoneMeetingCli time schedule <time> <locations...> [OPTIONS]
+./TimezoneMeetingCli time schedule <time> <locations...> [OPTIONS]
 ```
 **Examples:**
 ```bash
-TimezoneMeetingCli time schedule "14:00" "London" "Tokyo" "10001" "America/Los_Angeles" "Sydney"
-TimezoneMeetingCli time schedule "2026-05-15T09:00" "New York" "London" "Tokyo" --format json
+./TimezoneMeetingCli time schedule "14:00" "London" "Tokyo" "10001" "America/Los_Angeles" "Sydney"
+./TimezoneMeetingCli time schedule "2026-05-15T09:00" "New York" "London" "Tokyo" --format json
 ```
 
 ## Development & Publishing
