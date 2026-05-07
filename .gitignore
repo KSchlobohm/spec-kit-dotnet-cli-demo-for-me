@@ -427,3 +427,8 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Add missing .NET standard ignores
+[Bb]in/
+[Oo]bj/
+

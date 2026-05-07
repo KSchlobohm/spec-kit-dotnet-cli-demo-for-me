@@ -26,11 +26,11 @@ description: "Task list template for feature implementation"
 - Principle III (UX Consistency): establish CLI command structure and output conventions.
 - Principle IV (Performance): define performance baseline measurement task.
 
-- [ ] T001 Create project structure per implementation plan (`src/TimezoneMeetingCli`, `tests/TimezoneMeetingCli.UnitTests`, `tests/TimezoneMeetingCli.IntegrationTests`)
-- [ ] T002 Initialize .NET 8 LTS project with Spectre.Console, NodaTime, and TimeZoneConverter dependencies
-- [ ] T003 [P] Configure linting, formatting, and static analysis tools (Principle I)
-- [ ] T004 [P] Set up test project and runner; confirm red-green cycle works (Principle II)
-- [ ] T005 [P] Document CLI command naming conventions and output format contract in a shared class (Principle III)
+- [x] T001 Create project structure per implementation plan (`src/TimezoneMeetingCli`, `tests/TimezoneMeetingCli.UnitTests`, `tests/TimezoneMeetingCli.IntegrationTests`)
+- [x] T002 Initialize .NET 8 LTS project with Spectre.Console, NodaTime, and TimeZoneConverter dependencies
+- [x] T003 [P] Configure linting, formatting, and static analysis tools (Principle I)
+- [x] T004 [P] Set up test project and runner; confirm red-green cycle works (Principle II)
+- [x] T005 [P] Document CLI command naming conventions and output format contract in a shared class (Principle III)
 
 ---
 
