@@ -54,11 +54,11 @@ description: "Task list template for feature implementation"
 
 **Independent Test**: Execute the lookup command with a known ZIP code, city name, and timezone identifier. Verify that standard stdout prints the accurate, localized date and time in a human-readable format.
 
-- [ ] T011 [P] [US1] Create unit tests for parsing standard and edge-case zip codes and city names in `tests/TimezoneMeetingCli.UnitTests/`
-- [ ] T012 [US1] Implement the `time lookup` command class (`LookupCommand`) in `src/TimezoneMeetingCli/Commands/`
-- [ ] T013 [US1] Wire the `LookupCommand` arguments to the Geocoding and TimeConversion services
-- [ ] T014 [US1] Implement structured grid output vs JSON output handlers for single location results
-- [ ] T015 [US1] Create integration test verifying single command invocation returns correct data in `tests/TimezoneMeetingCli.IntegrationTests/`
+- [x] T011 [P] [US1] Create unit tests for parsing standard and edge-case zip codes and city names in `tests/TimezoneMeetingCli.UnitTests/`
+- [x] T012 [US1] Implement the `time lookup` command class (`LookupCommand`) in `src/TimezoneMeetingCli/Commands/`
+- [x] T013 [US1] Wire the `LookupCommand` arguments to the Geocoding and TimeConversion services
+- [x] T014 [US1] Implement structured grid output vs JSON output handlers for single location results
+- [x] T015 [US1] Create integration test verifying single command invocation returns correct data in `tests/TimezoneMeetingCli.IntegrationTests/`
 
 ---
 

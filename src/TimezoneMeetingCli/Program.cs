@@ -15,7 +15,7 @@ app.Configure(config =>
 {
     config.AddBranch("time", time =>
     {
-        // time.AddCommand<LookupCommand>("lookup");
+        time.AddCommand<TimezoneMeetingCli.Commands.LookupCommand>("lookup");
     });
 });
 
