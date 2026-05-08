@@ -52,6 +52,14 @@ public class OpenMeteoGeocodingService : IGeocodingService
             // Fails gracefully
             return null;
         }
+        catch (JsonException)
+        {
+            return null;
+        }
+        catch (TaskCanceledException) when (!cancellationToken.IsCancellationRequested)
+        {
+            return null;
+        }
     }
 
     private class OpenMeteoResponse

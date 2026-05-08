@@ -37,9 +37,9 @@ public class ScheduleCommand : AsyncCommand<ScheduleCommand.Settings>
 
     protected override async Task<int> ExecuteAsync(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
-        if (settings.Locations.Length < 1)
+        if (settings.Locations.Length < 5)
         {
-            OutputHandler.PrintError("At least one location must be provided.");
+            OutputHandler.PrintError("At least 5 locations must be provided.");
             return 1;
         }
 
@@ -49,8 +49,7 @@ public class ScheduleCommand : AsyncCommand<ScheduleCommand.Settings>
             return 1;
         }
 
-        // Assume the parsed time is in the local system's timezone
-        var baseTimeOffset = new DateTimeOffset(parsedDateTime, DateTimeOffset.Now.Offset);
+        var baseTimeOffset = BuildBaseTimeOffset(parsedDateTime, TimeZoneInfo.Local);
         var results = new List<LocalizedTimeResult>();
 
         foreach (var locationStr in settings.Locations)
@@ -101,5 +100,13 @@ public class ScheduleCommand : AsyncCommand<ScheduleCommand.Settings>
         }
 
         return 0;
+    }
+
+    internal static DateTimeOffset BuildBaseTimeOffset(DateTime parsedDateTime, TimeZoneInfo localTimeZone)
+    {
+        var localMeetingTime = DateTime.SpecifyKind(parsedDateTime, DateTimeKind.Unspecified);
+        var localOffset = localTimeZone.GetUtcOffset(localMeetingTime);
+
+        return new DateTimeOffset(localMeetingTime, localOffset);
     }
 }

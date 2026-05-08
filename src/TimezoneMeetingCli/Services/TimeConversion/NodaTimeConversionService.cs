@@ -6,9 +6,9 @@ namespace TimezoneMeetingCli.Services.TimeConversion;
 
 public class NodaTimeConversionService : ITimeConversionService
 {
-    public LocalizedTimeResult ConvertToLocalTime(GeocodedLocation location, DateTimeOffset? baseTimeUtc = null)
+    public LocalizedTimeResult ConvertToLocalTime(GeocodedLocation location, DateTimeOffset? baseTime = null)
     {
-        var inputDateTime = baseTimeUtc ?? DateTimeOffset.UtcNow;
+        var inputDateTime = baseTime ?? DateTimeOffset.UtcNow;
         var instant = Instant.FromDateTimeOffset(inputDateTime);
 
         var tzId = location.TimezoneId;

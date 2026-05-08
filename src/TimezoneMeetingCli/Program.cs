@@ -1,11 +1,26 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console.Cli;
+using System.Text.Json;
 using TimezoneMeetingCli.Infrastructure;
+using TimezoneMeetingCli.Models;
 using TimezoneMeetingCli.Services.Geocoding;
 using TimezoneMeetingCli.Services.TimeConversion;
 
 var services = new ServiceCollection();
-services.AddHttpClient<IGeocodingService, OpenMeteoGeocodingService>();
+var geocodingFixtureJson = Environment.GetEnvironmentVariable("TIMEZONE_MEETING_CLI_GEOCODING_FIXTURE_JSON");
+
+if (string.IsNullOrWhiteSpace(geocodingFixtureJson))
+{
+    services.AddHttpClient<IGeocodingService, OpenMeteoGeocodingService>();
+}
+else
+{
+    var geocodingFixture = JsonSerializer.Deserialize<Dictionary<string, GeocodedLocation>>(geocodingFixtureJson)
+        ?? new Dictionary<string, GeocodedLocation>();
+    services.AddSingleton<IGeocodingService>(new FixtureGeocodingService(
+        new Dictionary<string, GeocodedLocation>(geocodingFixture, StringComparer.OrdinalIgnoreCase)));
+}
+
 services.AddSingleton<ITimeConversionService, NodaTimeConversionService>();
 
 var registrar = new TypeRegistrar(services);

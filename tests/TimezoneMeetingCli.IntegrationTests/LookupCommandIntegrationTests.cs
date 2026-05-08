@@ -1,5 +1,5 @@
 using FluentAssertions;
-using System.Diagnostics;
+using TimezoneMeetingCli.Models;
 
 namespace TimezoneMeetingCli.IntegrationTests;
 
@@ -8,38 +8,68 @@ public class LookupCommandIntegrationTests
     [Fact]
     public void Lookup_ZipCode_ReturnsSuccess()
     {
-        var process = StartCli("time lookup 10001 --format json");
+        var process = CliProcessHelper.StartCli(
+            "time lookup Fixture-London --format json",
+            new Dictionary<string, GeocodedLocation>
+            {
+                ["Fixture-London"] = new("London, England, United Kingdom", 51.5072, -0.1276, "Europe/London")
+            });
         process.WaitForExit();
 
         process.ExitCode.Should().Be(0);
         var output = process.StandardOutput.ReadToEnd();
-        output.Should().Contain("New York"); // 10001 resolves to NY
+        var error = process.StandardError.ReadToEnd();
+
+        output.Should().Contain("Fixture-London");
+        output.Should().Contain("London, England, United Kingdom");
+        error.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Lookup_IanaTimezoneId_ReturnsSuccess()
+    {
+        var process = CliProcessHelper.StartCli("time lookup Europe/Paris --format json", new Dictionary<string, GeocodedLocation>());
+        process.WaitForExit();
+
+        process.ExitCode.Should().Be(0);
+        var output = process.StandardOutput.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
+
+        output.Should().Contain("Europe/Paris");
+        error.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Lookup_WindowsTimezoneId_ReturnsSuccess()
+    {
+        var process = CliProcessHelper.StartCli("time lookup \"Eastern Standard Time\" --format json", new Dictionary<string, GeocodedLocation>());
+        process.WaitForExit();
+
+        process.ExitCode.Should().Be(0);
+        var output = process.StandardOutput.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
+
+        output.Should().Contain("Eastern Standard Time");
+        output.Should().Contain("America/New_York");
+        error.Should().BeEmpty();
     }
     
     [Fact]
     public void Lookup_BadTarget_ReturnsError()
     {
-        var process = StartCli("time lookup ThisIsADefinitelyFakeLocationName");
+        var process = CliProcessHelper.StartCli(
+            "time lookup Fixture-Missing",
+            new Dictionary<string, GeocodedLocation>
+            {
+                ["Fixture-London"] = new("London, England, United Kingdom", 51.5072, -0.1276, "Europe/London")
+            });
         process.WaitForExit();
 
         process.ExitCode.Should().Be(1);
-        var error = process.StandardOutput.ReadToEnd(); // Spectre pushes markup to stdout sometimes, let's catch both
-        error += process.StandardError.ReadToEnd();
+        var output = process.StandardOutput.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
+
+        output.Should().BeEmpty();
         error.Should().Contain("could not be resolved");
-    }
-
-    private Process StartCli(string arguments)
-    {
-        var startInfo = new ProcessStartInfo
-        {
-            FileName = "dotnet",
-            Arguments = $"run --project ../../../../../src/TimezoneMeetingCli/TimezoneMeetingCli.csproj -- {arguments}",
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
-
-        return Process.Start(startInfo)!;
     }
 }
