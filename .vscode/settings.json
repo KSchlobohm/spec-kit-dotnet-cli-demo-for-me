@@ -11,7 +11,8 @@
         ".specify/scripts/powershell/": true,
         "git status": true,
         "git log": true,
-        "git remote": true
+        "git remote": true,
+        "./scripts/generate-summary-report.ps1": true
     }
 }
 
