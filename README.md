@@ -69,3 +69,12 @@ Run the test suite (Unit & Integration tests) using:
 ```bash
 dotnet test
 ```
+
+## Quality Report
+Generate a local HTML review report that summarizes PR goals, review-feedback coverage, deterministic CLI scenario evidence, and the full test-suite result:
+
+```bash
+pwsh ./scripts/generate-summary-report.ps1
+```
+
+The latest report is written to `artifacts/reports/latest/summary_report.html`, and the normalized report data is written to `artifacts/reports/latest/report_manifest.json`.

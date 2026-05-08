@@ -1,0 +1,516 @@
+{
+  "report": {
+    "title": "Timezone Meeting CLI PR Quality Summary",
+    "subtitle": "Local-first quality report generated from deterministic CLI scenarios, focused regression tests, and full-suite validation."
+  },
+  "pr": {
+    "title": "Follow spec kit demo #1",
+    "url": "https://github.com/KSchlobohm/spec-kit-dotnet-cli-demo-for-me/pull/1",
+    "goals": [
+      "Ship a functional .NET 8 CLI for timezone lookup and cross-timezone meeting scheduling.",
+      "Provide unit and integration coverage for the core commands and service behaviors.",
+      "Keep CLI UX consistent with stdout success output, stderr diagnostics, and JSON support.",
+      "Include specification artifacts and implementation structure that support repeatable development and review."
+    ]
+  },
+  "goals": [
+    {
+      "id": "goal-cli-product",
+      "title": "Core CLI product behavior is implemented",
+      "description": "Lookup and schedule user journeys execute successfully for the supported inputs and error paths that matter to users.",
+      "evidence": [
+        "lookup-zip",
+        "lookup-city",
+        "lookup-iana-timezone",
+        "lookup-windows-timezone",
+        "lookup-invalid-location",
+        "schedule-success",
+        "schedule-skip-unresolved",
+        "schedule-minimum-validation"
+      ]
+    },
+    {
+      "id": "goal-quality-automation",
+      "title": "Automated quality gates are in place",
+      "description": "Focused regression coverage and the full automated suite provide repeatable evidence for the feature and PR fixes.",
+      "evidence": [
+        "stderr-routing-test",
+        "dst-offset-test",
+        "invalid-json-test",
+        "timeout-test",
+        "parameter-name-test"
+      ]
+    },
+    {
+      "id": "goal-project-assets",
+      "title": "Project structure and documentation artifacts exist",
+      "description": "The PR promised a CLI app, tests, and specification assets; the report verifies those surfaces are present in the repository.",
+      "evidence": [
+        "program-file",
+        "readme-file",
+        "spec-file",
+        "unit-test-project",
+        "integration-test-project"
+      ]
+    }
+  ],
+  "reviewFeedback": [
+    {
+      "id": "feedback-schedule-minimum",
+      "title": "Schedule minimum participant count",
+      "description": "The schedule command should enforce the documented minimum of 5 provided locations.",
+      "evidence": [
+        "schedule-minimum-validation"
+      ]
+    },
+    {
+      "id": "feedback-dst-offset",
+      "title": "DST-sensitive local offset handling",
+      "description": "Meeting scheduling should use the local timezone offset for the parsed meeting date rather than today’s offset.",
+      "evidence": [
+        "dst-offset-test"
+      ]
+    },
+    {
+      "id": "feedback-deterministic-integration-tests",
+      "title": "Deterministic integration coverage",
+      "description": "CLI integration checks should not depend on the live Open-Meteo API or unstable third-party data.",
+      "evidence": [
+        "lookup-zip",
+        "lookup-city",
+        "schedule-success"
+      ]
+    },
+    {
+      "id": "feedback-timezone-id-support",
+      "title": "Timezone identifier support",
+      "description": "Lookup behavior should support both IANA timezone IDs and Windows timezone names shown in the docs.",
+      "evidence": [
+        "lookup-iana-timezone",
+        "lookup-windows-timezone"
+      ]
+    },
+    {
+      "id": "feedback-geocoding-json-failures",
+      "title": "Graceful geocoding failures",
+      "description": "Malformed API responses and timeout-like request cancellations should fail gracefully instead of crashing the command.",
+      "evidence": [
+        "invalid-json-test",
+        "timeout-test"
+      ]
+    },
+    {
+      "id": "feedback-stderr-routing",
+      "title": "stderr routing for diagnostics",
+      "description": "Errors and diagnostics should go to stderr rather than stdout.",
+      "evidence": [
+        "stderr-routing-test",
+        "lookup-invalid-location",
+        "schedule-minimum-validation"
+      ]
+    },
+    {
+      "id": "feedback-parameter-naming",
+      "title": "Offset-agnostic time parameter naming",
+      "description": "The time-conversion API should not imply that the optional DateTimeOffset parameter must be UTC.",
+      "evidence": [
+        "parameter-name-test"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "id": "FR-001",
+      "title": "Lookup supports timezone, city, and US zip inputs",
+      "description": "The CLI exposes `time lookup` and accepts timezone, city, and zip-style inputs.",
+      "evidence": [
+        "lookup-zip",
+        "lookup-city",
+        "lookup-iana-timezone",
+        "lookup-windows-timezone"
+      ]
+    },
+    {
+      "id": "FR-002",
+      "title": "Schedule handles at least 5 locations",
+      "description": "The CLI exposes `time schedule` and enforces a minimum of 5 provided participant locations.",
+      "evidence": [
+        "schedule-success",
+        "schedule-minimum-validation"
+      ]
+    },
+    {
+      "id": "FR-003/FR-004/FR-005/FR-006",
+      "title": "CLI output and exit behavior are consistent",
+      "description": "Success output goes to stdout, diagnostics go to stderr, JSON mode works, and exit codes reflect success or failure.",
+      "evidence": [
+        "lookup-zip",
+        "lookup-invalid-location",
+        "schedule-success",
+        "schedule-minimum-validation",
+        "stderr-routing-test"
+      ]
+    },
+    {
+      "id": "Quality",
+      "title": "PR fixes are guarded by automated checks",
+      "description": "Regression tests cover DST handling, geocoding failures, and renamed API semantics.",
+      "evidence": [
+        "dst-offset-test",
+        "invalid-json-test",
+        "timeout-test",
+        "parameter-name-test"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "program-file",
+      "title": "CLI entrypoint exists",
+      "kind": "file",
+      "path": "src/TimezoneMeetingCli/Program.cs",
+      "expected": {
+        "exists": true
+      }
+    },
+    {
+      "id": "readme-file",
+      "title": "README exists",
+      "kind": "file",
+      "path": "README.md",
+      "expected": {
+        "exists": true
+      }
+    },
+    {
+      "id": "spec-file",
+      "title": "Feature specification exists",
+      "kind": "file",
+      "path": "specs/001-timezone-meeting/spec.md",
+      "expected": {
+        "exists": true
+      }
+    },
+    {
+      "id": "unit-test-project",
+      "title": "Unit test project exists",
+      "kind": "file",
+      "path": "tests/TimezoneMeetingCli.UnitTests/TimezoneMeetingCli.UnitTests.csproj",
+      "expected": {
+        "exists": true
+      }
+    },
+    {
+      "id": "integration-test-project",
+      "title": "Integration test project exists",
+      "kind": "file",
+      "path": "tests/TimezoneMeetingCli.IntegrationTests/TimezoneMeetingCli.IntegrationTests.csproj",
+      "expected": {
+        "exists": true
+      }
+    },
+    {
+      "id": "lookup-zip",
+      "title": "Lookup succeeds for a zip-style input",
+      "kind": "cli",
+      "args": [
+        "time",
+        "lookup",
+        "10001",
+        "--format",
+        "json"
+      ],
+      "fixture": {
+        "10001": {
+          "Name": "New York, NY, USA",
+          "Latitude": 40.7506,
+          "Longitude": -73.9972,
+          "TimezoneId": "America/New_York"
+        }
+      },
+      "expected": {
+        "exitCode": 0,
+        "stdoutContains": [
+          "10001",
+          "New York, NY, USA"
+        ],
+        "stderrEmpty": true
+      }
+    },
+    {
+      "id": "lookup-city",
+      "title": "Lookup succeeds for a city input",
+      "kind": "cli",
+      "args": [
+        "time",
+        "lookup",
+        "London",
+        "--format",
+        "json"
+      ],
+      "fixture": {
+        "London": {
+          "Name": "London, England, United Kingdom",
+          "Latitude": 51.5072,
+          "Longitude": -0.1276,
+          "TimezoneId": "Europe/London"
+        }
+      },
+      "expected": {
+        "exitCode": 0,
+        "stdoutContains": [
+          "London",
+          "London, England, United Kingdom"
+        ],
+        "stderrEmpty": true
+      }
+    },
+    {
+      "id": "lookup-iana-timezone",
+      "title": "Lookup succeeds for an IANA timezone identifier",
+      "kind": "cli",
+      "args": [
+        "time",
+        "lookup",
+        "Europe/Paris",
+        "--format",
+        "json"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutContains": [
+          "Europe/Paris"
+        ],
+        "stderrEmpty": true
+      }
+    },
+    {
+      "id": "lookup-windows-timezone",
+      "title": "Lookup succeeds for a Windows timezone name",
+      "kind": "cli",
+      "args": [
+        "time",
+        "lookup",
+        "Eastern Standard Time",
+        "--format",
+        "json"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutContains": [
+          "Eastern Standard Time",
+          "America/New_York"
+        ],
+        "stderrEmpty": true
+      }
+    },
+    {
+      "id": "lookup-invalid-location",
+      "title": "Lookup returns an actionable error for an unresolved location",
+      "kind": "cli",
+      "args": [
+        "time",
+        "lookup",
+        "Fixture-Missing"
+      ],
+      "fixture": {
+        "London": {
+          "Name": "London, England, United Kingdom",
+          "Latitude": 51.5072,
+          "Longitude": -0.1276,
+          "TimezoneId": "Europe/London"
+        }
+      },
+      "expected": {
+        "exitCode": 1,
+        "stdoutEmpty": true,
+        "stderrContains": [
+          "could not be resolved"
+        ]
+      }
+    },
+    {
+      "id": "schedule-success",
+      "title": "Schedule succeeds for five supported participant locations",
+      "kind": "cli",
+      "args": [
+        "time",
+        "schedule",
+        "14:00",
+        "10001",
+        "London",
+        "Tokyo",
+        "America/Los_Angeles",
+        "Sydney",
+        "--format",
+        "json"
+      ],
+      "fixture": {
+        "10001": {
+          "Name": "New York, NY, USA",
+          "Latitude": 40.7506,
+          "Longitude": -73.9972,
+          "TimezoneId": "America/New_York"
+        },
+        "London": {
+          "Name": "London, England, United Kingdom",
+          "Latitude": 51.5072,
+          "Longitude": -0.1276,
+          "TimezoneId": "Europe/London"
+        },
+        "Tokyo": {
+          "Name": "Tokyo, Japan",
+          "Latitude": 35.6764,
+          "Longitude": 139.65,
+          "TimezoneId": "Asia/Tokyo"
+        },
+        "Sydney": {
+          "Name": "Sydney, NSW, Australia",
+          "Latitude": -33.8688,
+          "Longitude": 151.2093,
+          "TimezoneId": "Australia/Sydney"
+        }
+      },
+      "expected": {
+        "exitCode": 0,
+        "stdoutContains": [
+          "10001",
+          "London",
+          "Tokyo",
+          "America/Los_Angeles",
+          "Sydney"
+        ],
+        "stderrEmpty": true
+      }
+    },
+    {
+      "id": "schedule-skip-unresolved",
+      "title": "Schedule warns and continues when one location is unresolved",
+      "kind": "cli",
+      "args": [
+        "time",
+        "schedule",
+        "14:00",
+        "Fixture-Missing",
+        "London",
+        "Tokyo",
+        "10001",
+        "America/Los_Angeles",
+        "Sydney",
+        "--format",
+        "json"
+      ],
+      "fixture": {
+        "10001": {
+          "Name": "New York, NY, USA",
+          "Latitude": 40.7506,
+          "Longitude": -73.9972,
+          "TimezoneId": "America/New_York"
+        },
+        "London": {
+          "Name": "London, England, United Kingdom",
+          "Latitude": 51.5072,
+          "Longitude": -0.1276,
+          "TimezoneId": "Europe/London"
+        },
+        "Tokyo": {
+          "Name": "Tokyo, Japan",
+          "Latitude": 35.6764,
+          "Longitude": 139.65,
+          "TimezoneId": "Asia/Tokyo"
+        },
+        "Sydney": {
+          "Name": "Sydney, NSW, Australia",
+          "Latitude": -33.8688,
+          "Longitude": 151.2093,
+          "TimezoneId": "Australia/Sydney"
+        }
+      },
+      "expected": {
+        "exitCode": 0,
+        "stdoutContains": [
+          "London"
+        ],
+        "stderrContains": [
+          "could not be resolved. Skipping"
+        ]
+      }
+    },
+    {
+      "id": "schedule-minimum-validation",
+      "title": "Schedule rejects fewer than five locations",
+      "kind": "cli",
+      "args": [
+        "time",
+        "schedule",
+        "14:00",
+        "10001",
+        "London",
+        "Tokyo",
+        "America/Los_Angeles"
+      ],
+      "fixture": {
+        "10001": {
+          "Name": "New York, NY, USA",
+          "Latitude": 40.7506,
+          "Longitude": -73.9972,
+          "TimezoneId": "America/New_York"
+        },
+        "London": {
+          "Name": "London, England, United Kingdom",
+          "Latitude": 51.5072,
+          "Longitude": -0.1276,
+          "TimezoneId": "Europe/London"
+        },
+        "Tokyo": {
+          "Name": "Tokyo, Japan",
+          "Latitude": 35.6764,
+          "Longitude": 139.65,
+          "TimezoneId": "Asia/Tokyo"
+        }
+      },
+      "expected": {
+        "exitCode": 1,
+        "stdoutEmpty": true,
+        "stderrContains": [
+          "At least 5 locations must be provided"
+        ]
+      }
+    },
+    {
+      "id": "stderr-routing-test",
+      "title": "Regression test verifies diagnostics stay on stderr",
+      "kind": "test",
+      "project": "tests/TimezoneMeetingCli.UnitTests/TimezoneMeetingCli.UnitTests.csproj",
+      "filter": "FullyQualifiedName~TimezoneMeetingCli.UnitTests.OutputHandlerTests.PrintError_WritesOnlyToStandardError"
+    },
+    {
+      "id": "dst-offset-test",
+      "title": "Regression test verifies schedule offset uses the parsed date",
+      "kind": "test",
+      "project": "tests/TimezoneMeetingCli.UnitTests/TimezoneMeetingCli.UnitTests.csproj",
+      "filter": "FullyQualifiedName~TimezoneMeetingCli.UnitTests.TimeConversionTests.BuildBaseTimeOffset_UsesOffsetForParsedDate"
+    },
+    {
+      "id": "invalid-json-test",
+      "title": "Regression test verifies invalid geocoding JSON returns null",
+      "kind": "test",
+      "project": "tests/TimezoneMeetingCli.UnitTests/TimezoneMeetingCli.UnitTests.csproj",
+      "filter": "FullyQualifiedName~TimezoneMeetingCli.UnitTests.OpenMeteoGeocodingServiceTests.ResolveLocationAsync_InvalidJson_ReturnsNull"
+    },
+    {
+      "id": "timeout-test",
+      "title": "Regression test verifies timeout-like geocoding cancellation returns null",
+      "kind": "test",
+      "project": "tests/TimezoneMeetingCli.UnitTests/TimezoneMeetingCli.UnitTests.csproj",
+      "filter": "FullyQualifiedName~TimezoneMeetingCli.UnitTests.OpenMeteoGeocodingServiceTests.ResolveLocationAsync_TimeoutLikeCancellation_ReturnsNull"
+    },
+    {
+      "id": "parameter-name-test",
+      "title": "Regression test verifies the optional time parameter keeps the offset-agnostic name",
+      "kind": "test",
+      "project": "tests/TimezoneMeetingCli.UnitTests/TimezoneMeetingCli.UnitTests.csproj",
+      "filter": "FullyQualifiedName~TimezoneMeetingCli.UnitTests.TimeConversionTests.ConvertToLocalTime_UsesOffsetAgnosticParameterName"
+    }
+  ]
+}
