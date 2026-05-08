@@ -39,9 +39,7 @@ public class LookupCommand : AsyncCommand<LookupCommand.Settings>
     }
     private async Task<int> ExecuteInternalAsync(CommandContext context, Settings settings)
     {
-        var isZipCode = int.TryParse(settings.Location, out _);
-        var queryType = isZipCode ? QueryType.ZipCode : QueryType.CityName;
-        // Edge cases could map standard abbreviations to TimezoneId directly, or let the Geocoder handle it.
+        var queryType = LocationQueryParser.DetectQueryType(settings.Location);
 
         var locationQuery = new LocationQuery(settings.Location, queryType);
 

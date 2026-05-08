@@ -55,8 +55,7 @@ public class ScheduleCommand : AsyncCommand<ScheduleCommand.Settings>
 
         foreach (var locationStr in settings.Locations)
         {
-            var isZipCode = int.TryParse(locationStr, out _);
-            var queryType = isZipCode ? QueryType.ZipCode : QueryType.CityName;
+            var queryType = LocationQueryParser.DetectQueryType(locationStr);
             var locationQuery = new LocationQuery(locationStr, queryType);
 
             var geocoded = await _geocodingService.ResolveLocationAsync(locationQuery, cancellationToken);
