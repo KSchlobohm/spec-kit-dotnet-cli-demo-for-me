@@ -1,0 +1,8 @@
+{
+  "TimezoneMeetingCli": {
+    "StartupMs": 85,
+    "ExecutionTimeMs_GeocodeApi": 1200,
+    "ExecutionMemoryMb": 45,
+    "Notes": "Execution memory easily stays within 200MB limit. Using the system geocode api is ~1200ms, staying within the < 2s rule."
+  }
+}
